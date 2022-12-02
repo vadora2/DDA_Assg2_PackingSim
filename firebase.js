@@ -27,12 +27,11 @@ const playerRef = ref(db, "playerStats");
 
 //[STEP 3] Setup our event listener
 var readBtn = document
-.getElementById("btn-read")
-.addEventListener("click", getPlayerData);
+  .getElementById("btn-read")
+  .addEventListener("click", getPlayerData);
 
 //getPlayerData();
-function getPlayerData(e) 
-{
+function getPlayerData(e) {
   //const playerRef = ref(db, "players");
   //PlayerRef is declared at the top using a constant
   //get(child(db,`players/`))
@@ -51,28 +50,29 @@ function getPlayerData(e)
         snapshot.forEach((childSnapshot) => {
           //looping through each snapshot
           //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-          console.log("User key: " + childSnapshot.key);
-          console.log("Username: " + childSnapshot.child("userName").val());
-          if (childSnapshot.key == uuid)
-          {
+          //console.log("User key:" + childSnapshot.key);
+          //console.log("Username:" + childSnapshot.child("userName").val());
+          //console.log(`compare ${childSnapshot.key}:SUbyQ9LeZjb2MzjIKIC7wEWvxLW2`)
+          let userKey = (childSnapshot.key).trim();
+          if (userKey == "SUbyQ9LeZjb2MzjIKIC7wEWvxLW2") {
+            console.log(`username found: ${childSnapshot.child("userName").val()}`);
+
             content += `<tr>
             <td>${childSnapshot.child("userName").val()}</td>
             
             </tr>`;
           }
-      });
-      //update our table content
-      playerContent.innerHTML = content;
+        });
+        //update our table content
+        playerContent.innerHTML = content;
       } catch (error) {
-      console.log("Error getPlayerData" + error);
+        console.log("Error getPlayerData" + error);
       }
     }
-      else{
+    else {
       //@TODO what if no data ?
-      }
+    }
   });
-
-
   /* OLD ONE
   get(playerRef)
     .then((snapshot) => {//retrieve a snapshot of the data using a callback
@@ -99,7 +99,7 @@ const auth = getAuth();
 //retrieve element from form
 var frmCreateUser = document.getElementById("frmCreateUser");
 //we create a button listener to listen when someone clicks
-frmCreateUser.addEventListener("submit", function(e) {
+frmCreateUser.addEventListener("submit", function (e) {
   e.preventDefault();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
