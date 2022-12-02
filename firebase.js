@@ -52,9 +52,9 @@ function getPlayerData(e)
           //looping through each snapshot
           //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
           console.log("User key: " + childSnapshot.key);
-          console.log("Username: " + childSnapshot.child("username").val());
+          console.log("Username: " + childSnapshot.child("userName").val());
           content += `<tr>
-          <td>${childSnapshot.child("active").val()}</td>
+          <td>${childSnapshot.child("userName").val()}</td>
           //======= insert your own place to update UI
           </tr>`;
       });
