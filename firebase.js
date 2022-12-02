@@ -53,10 +53,13 @@ function getPlayerData(e)
           //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
           console.log("User key: " + childSnapshot.key);
           console.log("Username: " + childSnapshot.child("userName").val());
-          content += `<tr>
-          <td>${childSnapshot.child("userName").val()}</td>
-          //======= insert your own place to update UI
-          </tr>`;
+          if (childSnapshot.key == uuid)
+          {
+            content += `<tr>
+            <td>${childSnapshot.child("userName").val()}</td>
+            
+            </tr>`;
+          }
       });
       //update our table content
       playerContent.innerHTML = content;
