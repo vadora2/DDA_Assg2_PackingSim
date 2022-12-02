@@ -30,7 +30,7 @@ var readBtn = document
 .getElementById("btn-read")
 .addEventListener("click", getPlayerData);
 
-getPlayerData();
+//getPlayerData();
 function getPlayerData(e) 
 {
   //const playerRef = ref(db, "players");
