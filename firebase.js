@@ -24,11 +24,53 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase();
 const playerRef = ref(db, "playerStats");
+
+//[STEP 3] Setup our event listener
+var readBtn = document
+.getElementById("btn-read")
+.addEventListener("click", getPlayerData);
+
 getPlayerData();
-function getPlayerData() {
+function getPlayerData(e) 
+{
   //const playerRef = ref(db, "players");
   //PlayerRef is declared at the top using a constant
   //get(child(db,`players/`))
+
+  e.preventDefault();
+  //playerRef is declared at the top using a constant
+  //const playerRef = ref(db, "players");
+  //get(child(db,`players/`))
+  get(playerRef).then((snapshot) => { //retrieve a snapshot of the data using a callback
+    if (snapshot.exists()) {
+      //if the data exist
+      try {
+        //let's do something about it
+        var playerContent = document.getElementById("player-content");
+        var content = "";
+        snapshot.forEach((childSnapshot) => {
+          //looping through each snapshot
+          //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+          console.log("User key: " + childSnapshot.key);
+          console.log("Username: " + childSnapshot.child("username").val());
+          content += `<tr>
+          <td>${childSnapshot.child("active").val()}</td>
+          //======= insert your own place to update UI
+          </tr>`;
+      });
+      //update our table content
+      playerContent.innerHTML = content;
+      } catch (error) {
+      console.log("Error getPlayerData" + error);
+      }
+    }
+      else{
+      //@TODO what if no data ?
+      }
+  });
+
+
+  /* OLD ONE
   get(playerRef)
     .then((snapshot) => {//retrieve a snapshot of the data using a callback
       if (snapshot.exists()) {//if the data exist
@@ -46,8 +88,8 @@ function getPlayerData() {
         }
       }
     });
+ */
 }//end getPlayerData
-
 
 //Working with Auth
 const auth = getAuth();
@@ -78,20 +120,3 @@ function createUser(email, password) {
       console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
 }
-/*
-let student = {
-  studentName: "Melvyn",
-  grade: "A",
-  class: "M03",
-  marks: 100
-}
-
-console.log(student.class);
-
-function Student(studentName, grade, className, marks) {
-  this.studentName = studentName;
-  this.grade = grade;
-  this.class = className;
-  this.marks = marks;
-}
-*/
