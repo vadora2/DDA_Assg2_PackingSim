@@ -2,33 +2,79 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
+
+
+// Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDeG-pYB3UMHt6nCVK05_mlpYI-ZB4XeHg",
-  authDomain: "dda-assg2-packingsim.firebaseapp.com",
-  databaseURL: "https://dda-assg2-packingsim-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "dda-assg2-packingsim",
-  storageBucket: "dda-assg2-packingsim.appspot.com",
-  messagingSenderId: "226734249363",
-  appId: "1:226734249363:web:ac7880918d83ac41ba8466"
+  apiKey: "AIzaSyB7dk4QhzlkQkrQtDZXHtuxGk7NxOVZmWE",
+  authDomain: "dda-assg1-stonkscapitalism.firebaseapp.com",
+  databaseURL: "https://dda-assg1-stonkscapitalism-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "dda-assg1-stonkscapitalism",
+  storageBucket: "dda-assg1-stonkscapitalism.appspot.com",
+  messagingSenderId: "1019153313241",
+  appId: "1:1019153313241:web:5224515734b607629a7dc8",
   //measurementId: "G-G4ZG467EXY"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
 
 const db = getDatabase();
 const playerRef = ref(db, "playerStats");
-getPlayerData();
-function getPlayerData() {
+
+//[STEP 3] Setup our event listener
+var readBtn = document
+  .getElementById("btn-read")
+  .addEventListener("click", getPlayerData);
+
+//getPlayerData();
+function getPlayerData(e) {
   //const playerRef = ref(db, "players");
   //PlayerRef is declared at the top using a constant
   //get(child(db,`players/`))
+
+  e.preventDefault();
+  //playerRef is declared at the top using a constant
+  //const playerRef = ref(db, "players");
+  //get(child(db,`players/`))
+  get(playerRef).then((snapshot) => { //retrieve a snapshot of the data using a callback
+    if (snapshot.exists()) {
+      //if the data exist
+      try {
+        //let's do something about it
+        var playerContent = document.getElementById("player-content");
+        var content = "";
+        snapshot.forEach((childSnapshot) => {
+          //looping through each snapshot
+          //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+          //console.log("User key:" + childSnapshot.key);
+          //console.log("Username:" + childSnapshot.child("userName").val());
+          //console.log(`compare ${childSnapshot.key}:SUbyQ9LeZjb2MzjIKIC7wEWvxLW2`)
+          let userKey = (childSnapshot.key).trim();
+          if (userKey == "SUbyQ9LeZjb2MzjIKIC7wEWvxLW2") {
+            console.log(`username found: ${childSnapshot.child("userName").val()}`);
+
+            content += `<tr>
+            <td>${childSnapshot.child("userName").val()}</td>
+            
+            </tr>`;
+          }
+        });
+        //update our table content
+        playerContent.innerHTML = content;
+      } catch (error) {
+        console.log("Error getPlayerData" + error);
+      }
+    }
+    else {
+      //@TODO what if no data ?
+    }
+  });
+  /* OLD ONE
   get(playerRef)
     .then((snapshot) => {//retrieve a snapshot of the data using a callback
       if (snapshot.exists()) {//if the data exist
@@ -46,15 +92,15 @@ function getPlayerData() {
         }
       }
     });
+ */
 }//end getPlayerData
-
 
 //Working with Auth
 const auth = getAuth();
 //retrieve element from form
 var frmCreateUser = document.getElementById("frmCreateUser");
 //we create a button listener to listen when someone clicks
-frmCreateUser.addEventListener("submit", function(e) {
+frmCreateUser.addEventListener("submit", function (e) {
   e.preventDefault();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
@@ -80,20 +126,3 @@ function createUser(email, password) {
       console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
 }
-/*
-let student = {
-  studentName: "Melvyn",
-  grade: "A",
-  class: "M03",
-  marks: 100
-}
-
-console.log(student.class);
-
-function Student(studentName, grade, className, marks) {
-  this.studentName = studentName;
-  this.grade = grade;
-  this.class = className;
-  this.marks = marks;
-}
-*/

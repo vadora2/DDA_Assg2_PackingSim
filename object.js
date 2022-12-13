@@ -1,4 +1,4 @@
-
+/*
 let playerStats = {
     "createdOn": 0,
     "totalMoney": 12.277702331542969,
@@ -25,3 +25,4 @@ let playerStats = {
   // same as creating objects in c#
   let newPlayer = new PlayerStats(100, 1234564.213, 123, 4956, "I am a new player")
   console.log(newPlayer);
+  */
