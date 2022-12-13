@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -8,13 +8,13 @@ import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https:
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyB7dk4QhzlkQkrQtDZXHtuxGk7NxOVZmWE",
-  authDomain: "dda-assg1-stonkscapitalism.firebaseapp.com",
-  databaseURL: "https://dda-assg1-stonkscapitalism-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "dda-assg1-stonkscapitalism",
-  storageBucket: "dda-assg1-stonkscapitalism.appspot.com",
-  messagingSenderId: "1019153313241",
-  appId: "1:1019153313241:web:5224515734b607629a7dc8",
+  apiKey: "AIzaSyDeG-pYB3UMHt6nCVK05_mlpYI-ZB4XeHg",
+  authDomain: "dda-assg2-packingsim.firebaseapp.com",
+  databaseURL: "https://dda-assg2-packingsim-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "dda-assg2-packingsim",
+  storageBucket: "dda-assg2-packingsim.appspot.com",
+  messagingSenderId: "226734249363",
+  appId: "1:226734249363:web:ac7880918d83ac41ba8466"
   //measurementId: "G-G4ZG467EXY"
 };
 
@@ -58,6 +58,8 @@ frmCreateUser.addEventListener("submit", function(e) {
   e.preventDefault();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
+  var username = document.getElementById("username").value;
+  
   createUser(email, password);
   console.log("email" + email + "password" + password);
 });
