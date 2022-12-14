@@ -28,7 +28,7 @@ const playerRef = ref(db, "playerStats");
 //[STEP 3] Setup our event listener
 var readBtn = document
   .getElementById("btn-read")
-  .addEventListener("click", getPlayerData);
+  //.addEventListener("click", getPlayerData);
 
 //getPlayerData();
 function getPlayerData(e) {
