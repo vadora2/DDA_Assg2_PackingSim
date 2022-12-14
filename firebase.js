@@ -95,7 +95,7 @@ function getPlayerData(e) {
 }//end getPlayerData
 
 //Working with Auth
-const auth = getAuth();
+/*const auth = getAuth();
 //retrieve element from form
 var frmCreateUser = document.getElementById("frmCreateUser");
 //we create a button listener to listen when someone clicks
@@ -122,4 +122,4 @@ function createUser(email, password) {
       const errorMessage = error.message;
       console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
-}
+}*/
