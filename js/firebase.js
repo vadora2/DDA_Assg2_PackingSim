@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 
@@ -21,14 +21,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const db = getDatabase();
+
+//Working with Auth
+const auth = getAuth();
+
 const playerRef = ref(db, "playerStats");
 
 //[STEP 3] Setup our event listener
 var readBtn = document
   .getElementById("btn-read")
-  //.addEventListener("click", getPlayerData);
+  .addEventListener("click", getPlayerData);
 
 //getPlayerData();
 function getPlayerData(e) {
@@ -53,6 +56,7 @@ function getPlayerData(e) {
           //console.log("User key:" + childSnapshot.key);
           //console.log("Username:" + childSnapshot.child("userName").val());
           //console.log(`compare ${childSnapshot.key}:SUbyQ9LeZjb2MzjIKIC7wEWvxLW2`)
+          /*
           let userKey = (childSnapshot.key).trim();
           if (userKey == "SUbyQ9LeZjb2MzjIKIC7wEWvxLW2") {
             console.log(`username found: ${childSnapshot.child("userName").val()}`);
@@ -62,6 +66,11 @@ function getPlayerData(e) {
             
             </tr>`;
           }
+          */
+          content += `<tr>
+            <td>${childSnapshot.child("userName").val()}</td>
+            
+            </tr>`;
         });
         //update our table content
         playerContent.innerHTML = content;
@@ -73,6 +82,7 @@ function getPlayerData(e) {
       //@TODO what if no data ?
     }
   });
+  
   /* OLD ONE
   get(playerRef)
     .then((snapshot) => {//retrieve a snapshot of the data using a callback
@@ -94,32 +104,3 @@ function getPlayerData(e) {
  */
 }//end getPlayerData
 
-//Working with Auth
-/*const auth = getAuth();
-//retrieve element from form
-var frmCreateUser = document.getElementById("frmCreateUser");
-//we create a button listener to listen when someone clicks
-frmCreateUser.addEventListener("submit", function (e) {
-  e.preventDefault();
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-  createUser(email, password);
-  console.log("email" + email + "password" + password);
-});
-//create a new user based on email n password into Auth service
-//user will get signed in
-//userCredential is an object that gets
-function createUser(email, password) {
-  console.log("creating the user");
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      //signedin
-      const user = userCredential.user;
-      console.log("created user ... " + JSON.stringify(userCredential));
-      console.log("User is now signed in ");
-    }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
-    });
-}*/
