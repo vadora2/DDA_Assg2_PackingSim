@@ -31,8 +31,8 @@ const user = auth.CurrentUser;
 const playerRef = ref(db, "playerStats");
 
 //[STEP 3] Setup our event listener
-var readBtn = document
-  .getElementById("btn-read")
+//var readBtn = document
+  //.getElementById("btn-read")
   //.addEventListener("click", getPlayerData);
 
 //getPlayerData();
@@ -119,6 +119,7 @@ export function UpdatePlayerDisplayName(){
       // The user object has basic properties such as display name, email, etc.
       const displayname = user.displayName;
       console.log(displayname);
+      //document.getElementById("username").innerHTML = displayname;
     
       // The user's ID, unique to the Firebase project. Do NOT use
       // this value to authenticate with your backend server, if

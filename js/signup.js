@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+import {UpdatePlayerDisplayName} from "./firebase.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 
 
@@ -35,7 +36,7 @@ CreateUser.addEventListener("submit", function (e) {
   e.preventDefault();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
-  var displayname = document.getElementById("displayname").value;
+  var displayname = document.getElementById("username").value;
   
   createUser(email, password, displayname);
   console.log("email" + email + "password" + password + "username" + displayname);
@@ -46,13 +47,21 @@ CreateUser.addEventListener("submit", function (e) {
 //userCredential is an object that gets
 function createUser(email, password, displayname) {
   console.log("creating the user");
+
   createUserWithEmailAndPassword(auth, email, password, displayname)
     .then((userCredential) => {
       //signedin
       const user = userCredential.user;
       console.log("created user ... " + JSON.stringify(userCredential));
       console.log("User is now signed in ");
-      window.location.href="login.html";
+
+      //update display name
+      UpdatePlayerDisplayName();
+      console.log(displayname);
+
+      //change page
+      //window.location.href="login.html";
+
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;

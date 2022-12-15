@@ -47,11 +47,7 @@ SignInUser.addEventListener("submit", function (e) {
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var displayname = document.getElementById("username").value;
-    /*
-    if (ValidateEmail(email) && ValidatePassword(password)){
-      SignInWithEmailAndPasswordAsync(email, password)
-    }
-    */
+
     signInWithEmailAndPassword(auth,email,password,displayname)
     .then((userCredential) => {
       //signedin
@@ -59,9 +55,14 @@ SignInUser.addEventListener("submit", function (e) {
       console.log("logging in user ... " + JSON.stringify(userCredential));
       console.log("User is now signed in ");
       console.log("Sign In User: email" + email + "password" + password + "username" + displayname);
+
+      //update display name
       UpdatePlayerDisplayName();
       console.log(displayname);
-      //window.location.href="index.html";
+
+      //change page
+      window.location.href="index.html";
+
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
