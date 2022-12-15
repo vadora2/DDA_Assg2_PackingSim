@@ -1,8 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import { getAuth, CurrentUser, GetCurrentUserDisplayName, UpdatePlayerDisplayName, UserProfile, FirebaseUser} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
-
+//import {email, password, displayname} from "./signin";
+//import {email, password, displayname} from "./signup";
 
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
@@ -32,7 +33,7 @@ const playerRef = ref(db, "playerStats");
 //[STEP 3] Setup our event listener
 var readBtn = document
   .getElementById("btn-read")
-  .addEventListener("click", getPlayerData);
+  //.addEventListener("click", getPlayerData);
 
 //getPlayerData();
 function getPlayerData(e) {
@@ -112,10 +113,17 @@ function GetCurrentUser(){
   return user;
 }
 
-function UpdatePlayerDisplayName(displayname){
-  if (user != null){
-    profile = new UserProfile;
-    DisplayName = displayname;
-  }
-  console.log(DisplayName);
+export function UpdatePlayerDisplayName(){
+  onAuthStateChanged(auth, (user) => {
+    if (user !== null) {
+      // The user object has basic properties such as display name, email, etc.
+      const displayname = user.displayName;
+      console.log(displayname);
+    
+      // The user's ID, unique to the Firebase project. Do NOT use
+      // this value to authenticate with your backend server, if
+      // you have one. Use User.getToken() instead.
+      const uid = user.uid;
+    }
+  });
 }

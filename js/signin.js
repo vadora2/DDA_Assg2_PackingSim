@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+import {UpdatePlayerDisplayName} from "./firebase.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 
 
@@ -35,32 +36,35 @@ SignInUser.addEventListener("submit", function (e) {
     e.preventDefault();
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
+    var displayname = document.getElementById("username").value;
     
-    signInUser(email, password);
-    console.log("Sign In User: email" + email + "password" + password);
+    signInUser(email, password, displayname);
+    //console.log("Sign In User: email" + email + "password" + password + "username" + displayname);
   });
   
-  function signInUser(email, password){
+  function signInUser(email, password, displayname){
     console.log("Sign in user...")
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
+    var displayname = document.getElementById("username").value;
     /*
     if (ValidateEmail(email) && ValidatePassword(password)){
       SignInWithEmailAndPasswordAsync(email, password)
     }
     */
-    signInWithEmailAndPassword(auth,email,password)
+    signInWithEmailAndPassword(auth,email,password,displayname)
     .then((userCredential) => {
       //signedin
       const user = userCredential.user;
-      console.log("created user ... " + JSON.stringify(userCredential));
+      console.log("logging in user ... " + JSON.stringify(userCredential));
       console.log("User is now signed in ");
-      window.location.href="index.html";
+      console.log("Sign In User: email" + email + "password" + password + "username" + displayname);
+      UpdatePlayerDisplayName();
+      console.log(displayname);
+      //window.location.href="index.html";
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
-
-    UpdatePlayerDisplayName(displayname);
   }
