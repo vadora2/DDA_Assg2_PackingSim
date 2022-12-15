@@ -61,4 +61,6 @@ SignInUser.addEventListener("submit", function (e) {
       const errorMessage = error.message;
       console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
+
+    UpdatePlayerDisplayName(displayname);
   }

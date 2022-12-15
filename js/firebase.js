@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getAuth, CurrentUser, GetCurrentUserDisplayName, UpdatePlayerDisplayName, UserProfile, FirebaseUser} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 
@@ -25,6 +25,7 @@ const db = getDatabase();
 
 //Working with Auth
 const auth = getAuth();
+const user = auth.CurrentUser;
 
 const playerRef = ref(db, "playerStats");
 
@@ -73,6 +74,7 @@ function getPlayerData(e) {
             </tr>`;
         });
         //update our table content
+        
         playerContent.innerHTML = content;
       } catch (error) {
         console.log("Error getPlayerData" + error);
@@ -104,3 +106,16 @@ function getPlayerData(e) {
  */
 }//end getPlayerData
 
+// update current user
+
+function GetCurrentUser(){
+  return user;
+}
+
+function UpdatePlayerDisplayName(displayname){
+  if (user != null){
+    profile = new UserProfile;
+    DisplayName = displayname;
+  }
+  console.log(DisplayName);
+}

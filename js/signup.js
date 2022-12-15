@@ -35,18 +35,18 @@ CreateUser.addEventListener("submit", function (e) {
   e.preventDefault();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
-  var username = document.getElementById("username").value;
+  var displayname = document.getElementById("displayname").value;
   
-  createUser(email, password, username);
-  console.log("email" + email + "password" + password + "username" + username);
+  createUser(email, password, displayname);
+  console.log("email" + email + "password" + password + "username" + displayname);
 });
 
 //create a new user based on email n password into Auth service
 //user will get signed in
 //userCredential is an object that gets
-function createUser(email, password, username) {
+function createUser(email, password, displayname) {
   console.log("creating the user");
-  createUserWithEmailAndPassword(auth, email, password, username)
+  createUserWithEmailAndPassword(auth, email, password, displayname)
     .then((userCredential) => {
       //signedin
       const user = userCredential.user;
