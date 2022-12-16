@@ -28,20 +28,24 @@ const db = getDatabase();
 const auth = getAuth();
 const user = auth.CurrentUser;
 
-const playerRef = ref(db, "playerStats");
+const playerRef = ref(db, "players");
+
+//Retrieve from login
+var myData = sessionStorage.getItem('UUID');
+console.log(myData);
 
 //[STEP 3] Setup our event listener
 //var readBtn = document
   //.getElementById("btn-read")
   //.addEventListener("click", getPlayerData);
 
-//getPlayerData();
+getPlayerData();
 function getPlayerData(e) {
   //const playerRef = ref(db, "players");
   //PlayerRef is declared at the top using a constant
   //get(child(db,`players/`))
 
-  e.preventDefault();
+  //e.preventDefault();
   //playerRef is declared at the top using a constant
   //const playerRef = ref(db, "players");
   //get(child(db,`players/`))
@@ -58,21 +62,27 @@ function getPlayerData(e) {
           //console.log("User key:" + childSnapshot.key);
           //console.log("Username:" + childSnapshot.child("userName").val());
           //console.log(`compare ${childSnapshot.key}:SUbyQ9LeZjb2MzjIKIC7wEWvxLW2`)
-          /*
           let userKey = (childSnapshot.key).trim();
-          if (userKey == "SUbyQ9LeZjb2MzjIKIC7wEWvxLW2") {
-            console.log(`username found: ${childSnapshot.child("userName").val()}`);
-
+          if (userKey == myData) {
+            console.log(`username found: ${childSnapshot.child("displayName").val()}`);
+            content += `<p>
+            ${childSnapshot.child("displayName").val()}
+            </p>`;
+            /*
             content += `<tr>
             <td>${childSnapshot.child("userName").val()}</td>
-            
             </tr>`;
+            */
           }
-          */
+          
+          /*
           content += `<tr>
             <td>${childSnapshot.child("userName").val()}</td>
             
             </tr>`;
+            */
+          
+            
         });
         //update our table content
         
@@ -113,18 +123,24 @@ function GetCurrentUser(){
   return user;
 }
 
-export function UpdatePlayerDisplayName(){
+/*
+export function UpdatePlayerDisplayName(displayname){
   onAuthStateChanged(auth, (user) => {
     if (user !== null) {
       // The user object has basic properties such as display name, email, etc.
+      const uid = user.uid;
       const displayname = user.displayName;
-      console.log(displayname);
+      console.log("Firebase.js in index.html: " + displayname);
       //document.getElementById("username").innerHTML = displayname;
     
       // The user's ID, unique to the Firebase project. Do NOT use
       // this value to authenticate with your backend server, if
       // you have one. Use User.getToken() instead.
-      const uid = user.uid;
+      var myData = sessionStorage.getItem('UUID');
+      console.log(myData);
+      
     }
   });
 }
+*/
+

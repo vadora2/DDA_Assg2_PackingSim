@@ -60,7 +60,7 @@ function createUser(email, password, displayname) {
       console.log(displayname);
 
       //change page
-      //window.location.href="login.html";
+      window.location.href="login.html";
 
     }).catch((error) => {
       const errorCode = error.code;

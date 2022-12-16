@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
-import {UpdatePlayerDisplayName} from "./firebase.js";
+//import {UpdatePlayerDisplayName} from "./firebase.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 
 
@@ -52,16 +52,21 @@ SignInUser.addEventListener("submit", function (e) {
     .then((userCredential) => {
       //signedin
       const user = userCredential.user;
+      const uid = user.uid;
+
+      sessionStorage.setItem("UUID", uid);
+      console.log("The user uid" + uid);
+      
       console.log("logging in user ... " + JSON.stringify(userCredential));
       console.log("User is now signed in ");
       console.log("Sign In User: email" + email + "password" + password + "username" + displayname);
 
-      //update display name
-      UpdatePlayerDisplayName();
-      console.log(displayname);
-
       //change page
       window.location.href="index.html";
+
+      //update display name
+      //UpdatePlayerDisplayName(displayname);
+      //console.log(displayname);
 
     }).catch((error) => {
       const errorCode = error.code;
