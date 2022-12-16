@@ -36,19 +36,19 @@ SignInUser.addEventListener("submit", function (e) {
     e.preventDefault();
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    var displayname = document.getElementById("username").value;
+    //var displayname = document.getElementById("username").value;
     
-    signInUser(email, password, displayname);
+    signInUser(email, password);
     //console.log("Sign In User: email" + email + "password" + password + "username" + displayname);
   });
   
-  function signInUser(email, password, displayname){
+  function signInUser(email, password){
     console.log("Sign in user...")
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    var displayname = document.getElementById("username").value;
+    //var displayname = document.getElementById("username").value;
 
-    signInWithEmailAndPassword(auth,email,password,displayname)
+    signInWithEmailAndPassword(auth,email,password)
     .then((userCredential) => {
       //signedin
       const user = userCredential.user;
@@ -59,7 +59,7 @@ SignInUser.addEventListener("submit", function (e) {
       
       console.log("logging in user ... " + JSON.stringify(userCredential));
       console.log("User is now signed in ");
-      console.log("Sign In User: email" + email + "password" + password + "username" + displayname);
+      console.log("Sign In User: email" + email + "password" + password);
 
       //change page
       window.location.href="index.html";

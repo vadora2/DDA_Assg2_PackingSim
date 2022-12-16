@@ -3,3 +3,9 @@ html, body {
     width: 100%;
   }
   
+  .my-bg-register-image {
+    background: url("img/worker.jpg") ; 
+    background-position: center;
+    background-size: cover;
+  }
+  
