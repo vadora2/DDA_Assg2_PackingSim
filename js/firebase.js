@@ -27,12 +27,12 @@ const db = getDatabase();
 //Working with Auth
 const auth = getAuth();
 const user = auth.CurrentUser;
-
 const playerRef = ref(db, "players");
+const playerStats = ref(db, "playerStats");
 
 //Retrieve from login
 var myData = sessionStorage.getItem('UUID');
-console.log(myData);
+console.log("this is my data " + myData);
 
 //[STEP 3] Setup our event listener
 //var readBtn = document
@@ -65,28 +65,88 @@ function getPlayerData(e) {
           let userKey = (childSnapshot.key).trim();
           if (userKey == myData) {
             console.log(`username found: ${childSnapshot.child("displayName").val()}`);
-            content += `<p>
+            content += `<p class = "name">
             ${childSnapshot.child("displayName").val()}
             </p>`;
-            /*
-            content += `<tr>
-            <td>${childSnapshot.child("userName").val()}</td>
-            </tr>`;
-            */
+
           }
-          
-          /*
-          content += `<tr>
-            <td>${childSnapshot.child("userName").val()}</td>
-            
-            </tr>`;
-            */
-          
-            
         });
         //update our table content
-        
         playerContent.innerHTML = content;
+      } catch (error) {
+        console.log("Error getPlayerData" + error);
+      }
+    }
+    else {
+      //@TODO what if no data ?
+    }
+  });
+
+  get(playerStats).then((snapshot) => { //retrieve a snapshot of the data using a callback
+    if (snapshot.exists()) {
+      //if the data exist
+      
+      try {
+        //let's do something about it
+        var playerName = document.getElementById("playerName");
+        var playerNamecontent = "";
+
+        var highestScore = document.getElementById("highestScore");
+        var highestScorecontent = "";
+
+        var boxesDelivered = document.getElementById("boxesDelivered");
+        var boxesDeliveredcontent = "";
+
+        snapshot.forEach((childSnapshot) => {
+          //looping through each snapshot
+          //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+          //console.log("User key:" + childSnapshot.key);
+          //console.log("Username:" + childSnapshot.child("userName").val());
+          //console.log(`compare ${childSnapshot.key}:SUbyQ9LeZjb2MzjIKIC7wEWvxLW2`)
+
+          let userKey = (childSnapshot.key).trim();
+
+          if (userKey == myData) {
+
+            ////display name
+            console.log(`username found: ${childSnapshot.child("displayName").val()}`);
+
+            //adding data into 'content'
+            playerNamecontent += `<td id="playerName">
+            ${childSnapshot.child("displayName").val()}
+            </td>`;
+
+            
+            ////highest score
+            console.log(`highest score found: ${childSnapshot.child("highestScore").val()}`);
+
+            //adding data into 'content'
+            highestScorecontent += `<td id="highestScore">
+            ${childSnapshot.child("highestScore").val()}
+            </td>`;
+            
+            //update our table content
+            //highestScore.innerHTML = content;
+            
+            
+            ////boxes delivered
+            console.log(`highest boxes delivered found: ${childSnapshot.child("boxesDelivered").val()}`);
+            
+            //adding data into 'content'
+            boxesDeliveredcontent += `<td id="boxesDelivered">
+            ${childSnapshot.child("boxesDelivered").val()}
+            </td>`;
+            
+            //update our table content
+            //boxesDelivered.innerHTML = content;
+          }
+        });
+        
+        //update our table content
+        playerName.innerHTML = playerNamecontent;
+        highestScore.innerHTML = highestScorecontent;
+        boxesDelivered.innerHTML = boxesDeliveredcontent;
+        
       } catch (error) {
         console.log("Error getPlayerData" + error);
       }
@@ -118,9 +178,12 @@ function getPlayerData(e) {
 }//end getPlayerData
 
 // update current user
-
 function GetCurrentUser(){
   return user;
+}
+
+function LogOut(){
+  sessionStorage.clear();
 }
 
 /*

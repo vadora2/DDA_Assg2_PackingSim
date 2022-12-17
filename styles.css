@@ -9,3 +9,14 @@ html, body {
     background-size: cover;
   }
   
+  .my-dropdown-menu-right {
+    right: 0;
+  }
+
+  .my-small {
+    font-size: 140%;
+  }
+
+  .name {
+    margin-bottom: 1rem !important;
+  }
