@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 //import {UpdatePlayerDisplayName} from "./firebase.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
@@ -60,16 +60,14 @@ function createUser(email, password, displayname) {
       //console.log(displayname);
 
       //change page
-      //window.location.href="login.html";
+      window.location.href="login.html";
 
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
-    if (firebase.auth().currentUser !== null) 
-        console.log("user id: " + firebase.auth().currentUser.uid);
-    //console.log("current user: "+ firebase.auth().currentUser)
+
     var currentTimestamp = new Date().getTime();
     var playerData = {
       active: true,
@@ -79,8 +77,34 @@ function createUser(email, password, displayname) {
       updatedOn: currentTimestamp,
       userName: displayname,
     };
+    var playerStats = {
+      createdOn: currentTimestamp,
+      noOfMoneyEarned: 0,
+      noOfboxDelivered: 0,
+      updatedOn: currentTimestamp,
+      userName: displayname,
+    };
+    var leaderboard = {
+      noOfMoneyEarned: 0,
+      noOfboxDelivered: 0,
+      updatedOn: currentTimestamp,
+      userName: displayname,
+    };
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        console.log("The UID: " + uid)
+        set(ref(db, `players/${uid}`), playerData);
+        set(ref(db, `playerStats/${uid}`), playerStats);
+        set(ref(db, `leaderboards/${uid}`), leaderboard);
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
 
-    set(ref(db, `players/${userCredential.userId}`), playerData);
     //onValue(playerRef, (snapshot) =>{
     //  updatePlayerContent(snapshot);
     //})
