@@ -17,6 +17,6 @@ html, body {
     font-size: 140%;
   }
 
-  .name {
-    margin-bottom: 1rem !important;
+  .username {
+    margin-top: 50 !important;
   }
