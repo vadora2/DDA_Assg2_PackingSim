@@ -59,15 +59,6 @@ function createUser(email, password, displayname) {
       //UpdatePlayerDisplayName();
       //console.log(displayname);
 
-      //change page
-      window.location.href="login.html";
-
-    }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
-    });
-
     var currentTimestamp = new Date().getTime();
     var playerData = {
       active: true,
@@ -103,6 +94,16 @@ function createUser(email, password, displayname) {
         // User is signed out
         // ...
       }
+    });
+
+      //change page
+      setTimeout(() => {window.location.href="login.html"}, 1000);
+      //window.location.href="login.html";
+
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
 
     //onValue(playerRef, (snapshot) =>{
