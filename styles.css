@@ -14,9 +14,13 @@ html, body {
   }
 
   .my-small {
-    font-size: 140%;
+    font-size: 110%;
   }
 
   .username {
     margin-top: 50 !important;
+  }
+
+  #playerUserName{
+    padding-top: 15px;
   }

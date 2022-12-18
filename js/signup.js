@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
-import {UpdatePlayerDisplayName} from "./firebase.js";
+//import {UpdatePlayerDisplayName} from "./firebase.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 
 
@@ -56,7 +56,7 @@ function createUser(email, password, displayname) {
       console.log("User is now signed in ");
 
       //update display name
-      UpdatePlayerDisplayName();
+      //UpdatePlayerDisplayName();
       console.log(displayname);
 
       //change page

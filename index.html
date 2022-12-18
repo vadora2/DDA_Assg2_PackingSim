@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="styles.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -43,7 +43,7 @@
                         <ui class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 my-small" id="player-content"></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 my-small" id="playerUserName"></span>
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -179,23 +179,28 @@
                                               border-collapse: collapse;
                                             }
                                         </style>
-
                                         <table style="width:100%">
                                             <tr>
                                               <th style ="width: 20%">Ranking</th>
                                               <th>Name</th>
-                                              <th>Score</th>
-                                            </tr>
+                                              <th>MoneyEarned</th>
+                                              <th>Boxes Delivered</th>
+
+                                          </table>
+                                        <table style="width:100%" id="leaderBoardData">
+
 
                                             <tr>
-                                              <td>1</td>
-                                              <td>Tobias</td>
-                                              <td>20</td>
+                                                <td>1</td>
+                                                <td>Jane</td>
+                                                <td>190</td>
+                                                <td>19</td>
                                             </tr>
 
                                             <tr>
                                               <td>1</td>
                                               <td>Jane</td>
+                                              <td>190</td>
                                               <td>19</td>
                                             </tr>
 
@@ -238,7 +243,7 @@
                                         <table style="width:100%">
                                             <tr>
                                               <th>Player Name:</th>
-                                              <td id="userName"></td>
+                                              <td id="playerStatsUserName"></td>
                                             </tr>
 
                                             <tr>

@@ -20,13 +20,53 @@ const db = getDatabase();
 //Working with Auth
 const auth = getAuth();
 const user = auth.CurrentUser;
-const lb = ref(db, "leaderboard");
+const leaderboard = ref(db, "leaderboards");
 
-//get leaderboard data from fb
+//Retrieve from login
+var myData = sessionStorage.getItem('UUID');
+console.log("this is my data in leaderboard: " + myData);
 
-//get leaderboard (can be put in FB Mgr)
+var limit = 10;
 
-//update leaderboard
-function UpdateLB(){
-    var lbList;
-}
+  getLB(limit);
+  function getLB(limit = 10){
+    //q = get(lb).then(orderByChild("noOfMoneyEarned").LimitToLast(limit));
+    //lbList=[];
+  
+    get(leaderboard).then((snapshot) => { //retrieve a snapshot of the data using a callback
+      if (snapshot.exists()) {
+        //if the data exist
+        
+        try {
+          //let's do something about it
+          var overLeaderBoard = document.getElementById("leaderBoardData");
+          var content = "";
+          snapshot.forEach((childSnapshot) => {
+            //console.log(childSnapshot);
+            //looping through each snapshot
+            console.log(`username of players found: ${childSnapshot.child("userName").val()}`);
+            content += `<tr>
+            <td>${childSnapshot.child("userName").val()} </td>
+            <td>${childSnapshot.child("userName").val()}</td>
+            <td>${childSnapshot.child("noOfMoneyEarned").val()}</td>
+            <td>${childSnapshot.child("noOfboxDelivered").val()}</td>
+            </tr>`;
+            
+                                              
+          });
+          overLeaderBoard.innerHTML = content;
+          
+        } catch (error) {
+          console.log("Error getPlayerData" + error);
+        }
+        
+      }
+      else {
+        //@TODO what if no data ?
+      }
+    });
+  }
+
+  function GetCurrentUser(){
+    return user;
+  }
