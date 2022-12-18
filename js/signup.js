@@ -57,16 +57,33 @@ function createUser(email, password, displayname) {
 
       //update display name
       //UpdatePlayerDisplayName();
-      console.log(displayname);
+      //console.log(displayname);
 
       //change page
-      window.location.href="login.html";
+      //window.location.href="login.html";
 
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
+    if (firebase.auth().currentUser !== null) 
+        console.log("user id: " + firebase.auth().currentUser.uid);
+    //console.log("current user: "+ firebase.auth().currentUser)
+    var currentTimestamp = new Date().getTime();
+    var playerData = {
+      active: true,
+      createdOn: currentTimestamp,
+      email: email,
+      lastLoggedIn: currentTimestamp,
+      updatedOn: currentTimestamp,
+      userName: displayname,
+    };
+
+    set(ref(db, `players/${userCredential.userId}`), playerData);
+    //onValue(playerRef, (snapshot) =>{
+    //  updatePlayerContent(snapshot);
+    //})
 }
 
 /*ValidatePassword.bool (password){
