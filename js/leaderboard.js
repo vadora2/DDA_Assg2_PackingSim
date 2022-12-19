@@ -38,25 +38,37 @@ var limit = 10;
     get(que).then((snapshot) => { //retrieve a snapshot of the data using a callback
       if (snapshot.exists()) {
         //if the data exist
-        /*
         var lbList= [];
-
-        
         snapshot.forEach((childSnapshot) => {
            lbList.push(childSnapshot.val());                   
         });
+
+        var leaderBoardData = document.getElementById("leaderBoardData");
+        var content = "";
         lbList.reverse()
         console.log(lbList);
-        //AddAllItemsToTable(lbList);
-        */
-        
+
+        var i = 1;
+        lbList.forEach((item) => {
+          //console.log(`username of players found: ${item.noOfMoneyEarned}`);
+          
+          content += `
+          
+          <tr>
+          <td>${i++}</td>
+          <td>${item.userName}</td>
+          <td>${item.noOfMoneyEarned}</td>
+          <td>${item.noOfboxDelivered}</td>
+          </tr>
+          `
+        });
+        leaderBoardData.innerHTML += content;
+        /*
         try {
           //let's do something about it
           var overLeaderBoard = document.getElementById("leaderBoardData");
           var content = "";
-          snapshot.forEach((childSnapshot) => {
-            
-            
+          snapshot.forEach((childSnapshot) => 
             //looping through each snapshot
             console.log(`username of players found: ${childSnapshot.child("userName").val()}`);
             content += `<tr>
@@ -64,16 +76,13 @@ var limit = 10;
             <td>${childSnapshot.child("userName").val()}</td>
             <td>${childSnapshot.child("noOfMoneyEarned").val()}</td>
             <td>${childSnapshot.child("noOfboxDelivered").val()}</td>
-            </tr>`;
-            
-                                              
+            </tr>`;                                
           });
           overLeaderBoard.innerHTML = content;
-          
         } catch (error) {
           console.log("Error getPlayerData" + error);
         }
-        
+        */
       }
       else {
         //@TODO what if no data ?
