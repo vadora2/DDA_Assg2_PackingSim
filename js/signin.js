@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+import { getDatabase, ref, get, child, set, update, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 //import {UpdatePlayerDisplayName} from "./firebase.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 
@@ -61,8 +61,22 @@ SignInUser.addEventListener("submit", function (e) {
       console.log("User is now signed in ");
       console.log("Sign In User: email" + email + "password" + password);
 
+      console.log("login update")
+  
+      update(ref(db, "playerStats/" + uid),{
+        active: true
+      });
+      update(ref(db, "leaderboards/" + uid),{
+        active: true
+      });
+
+      update(ref(db, "players/" + uid),{
+        active: true
+      });
+      setTimeout(() => {window.location.href="index.html"}, 1000);
+      
       //change page
-      window.location.href="index.html";
+      //setTimeout(() => {window.location.href="index.html"}, 1000);
 
       //update display name
       //UpdatePlayerDisplayName(displayname);
@@ -74,3 +88,4 @@ SignInUser.addEventListener("submit", function (e) {
       console.log(`ErrorCode: ${errorCode} -> Message: ${errorMessage}`);
     });
   }
+

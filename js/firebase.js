@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-import { getDatabase, ref, get, child, set, onValue, orderByChild } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+import { getDatabase, ref, get, child, set, update, push, onValue, orderByChild} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
 //import {email, password, displayname} from "./signin";
 //import {email, password, displayname} from "./signup";
@@ -29,19 +29,34 @@ const auth = getAuth();
 const user = auth.CurrentUser;
 const playerRef = ref(db, "players");
 const playerStats = ref(db, "playerStats");
-//const lb = ref(db, "leaderboard");
+const leaderboard = ref(db, "leaderboards");
 
 //Retrieve from login
 var myData = sessionStorage.getItem('UUID');
 console.log("this is my data in firebase: " + myData);
 
 //[STEP 3] Setup our event listener
-//var readBtn = document
-  //.getElementById("btn-read")
-  //.addEventListener("click", getPlayerData);
-  //get Leaderboard
-  var limit = 1;
-  
+var limit = 1;
+
+let deletePlayerStat = document.getElementById("deleteData");
+deletePlayerStat.addEventListener("click",  UpdatePlayerStats);
+ 
+//UpdatePlayerStats();
+
+function UpdatePlayerStats(){
+  console.log("Deleting you statistic")
+
+  update(ref(db, "playerStats/" + myData),{
+      noOfMoneyEarned: 0,
+      noOfboxDelivered: 0
+  });
+  update(ref(db, "leaderboards/" + myData),{
+    noOfMoneyEarned: 0,
+    noOfboxDelivered: 0
+  });
+  setTimeout(() => {window.location.href="index.html"}, 1000);
+}
+
 getPlayerData(limit = 1);
 function getPlayerData() {
   //const playerRef = ref(db, "players");
@@ -67,8 +82,9 @@ function getPlayerData() {
           //console.log(`compare ${childSnapshot.key}:SUbyQ9LeZjb2MzjIKIC7wEWvxLW2`)
           let userKey = (childSnapshot.key).trim();
           if (userKey == myData) {
-            console.log(`username of players found: ${childSnapshot.child("userName").val()}`);
-            content += `<p class = "name">
+            console.log(`username of player found: ${childSnapshot.child("userName").val()}`);
+            
+            content += `<p class ="name" style="font-weight: bold;"> Welcome Back,
             ${childSnapshot.child("userName").val()}
             </p>`;
           }
@@ -94,14 +110,14 @@ function getPlayerData() {
         var playerName = document.getElementById("playerStatsUserName");
         var playerNamecontent = "";
 
-        //var displayName = document.getElementById("player-content");
-        //var content ="";
-
         var highestScore = document.getElementById("noOfboxDelivered");
         var highestScorecontent = "";
 
         var boxesDelivered = document.getElementById("noOfMoneyEarned");
         var boxesDeliveredcontent = "";
+
+        var myStatus = document.getElementById("yourStatus");
+        var myStatusContent ="";
 
         snapshot.forEach((childSnapshot) => {
           //looping through each snapshot
@@ -127,35 +143,48 @@ function getPlayerData() {
             //${childSnapshot.child("userName").val()}
             //</p>`;
 
-            ////highest score
+            ////box deliver
             console.log(`no. boxes delivered found: ${childSnapshot.child("noOfboxDelivered").val()}`);
 
             //adding data into 'content'
-            highestScorecontent += `<td id="noOfboxDelivered">
+            boxesDeliveredcontent += `<td id="noOfboxDelivered">
             ${childSnapshot.child("noOfboxDelivered").val()}
             </td>`;
             
             //update our table content
             //highestScore.innerHTML = content;
             
-            ////boxes delivered
+            ////money earned
             console.log(`highest money earned found: ${childSnapshot.child("noOfMoneyEarned").val()}`);
             
             //adding data into 'content'
-            boxesDeliveredcontent += `<td id="noOfMoneyEarned">
-            ${childSnapshot.child("noOfMoneyEarned").val()}
+            highestScorecontent+= `<td id="noOfMoneyEarned">
+            $${childSnapshot.child("noOfMoneyEarned").val()}
             </td>`;
-            
-            //update our table content
-            //boxesDelivered.innerHTML = content;
+
+            ////active status
+
+            console.log(`my status: ${childSnapshot.child("active").val()}`);
+            var status = "Offline";
+            if(childSnapshot.child("active").val() == true){
+              status = 'Online'
+            }
+            else{
+              status = 'Offline'
+            }
+            //adding data into 'content'
+            myStatusContent+= `
+            ${status}
+            `;
           }
         });
         //update our table content
         playerName.innerHTML = playerNamecontent;
         highestScore.innerHTML = highestScorecontent;
         boxesDelivered.innerHTML = boxesDeliveredcontent;
-        //update our displayname content
-        //displayName.innerHTML = content;
+        myStatus.innerHTML = myStatusContent;
+  
+        
         
       } catch (error) {
         console.log("Error getPlayerData" + error);
@@ -166,46 +195,6 @@ function getPlayerData() {
       console.log("No playerstat" + error);
     }
 
-    /*
-  GetLB(limit);
-  function GetLB(limit){
-    q = get(lb).then(orderByChild("noOfMoneyEarned").LimitToLast(limit));
-    lbList=[];
-  
-    get(q).then((snapshot) => { //retrieve a snapshot of the data using a callback
-      if (snapshot.exists()) {
-        //if the data exist
-  
-        try {
-          //let's do something about it
-          
-  
-          snapshot.forEach((childSnapshot) => {
-            console.log(childSnapshot);
-            //looping through each snapshot
-            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-            //console.log("User key:" + childSnapshot.key);
-            //console.log("Username:" + childSnapshot.child("userName").val());
-            //console.log(`compare ${childSnapshot.key}:SUbyQ9LeZjb2MzjIKIC7wEWvxLW2`)
-  
-            let userKey = (childSnapshot.key).trim();
-  
-            if (userKey == myData) {
-  
-            }
-          });
-          
-          
-        } catch (error) {
-          console.log("Error getPlayerData" + error);
-        }
-      }
-      else {
-        //@TODO what if no data ?
-      }
-    });
-  }
-  */
   });
   
   /* OLD ONE
@@ -234,28 +223,21 @@ function GetCurrentUser(){
   return user;
 }
 
+let logout = document.getElementById("LogOutBTN");
+logout.addEventListener("click",  LogOut);
 function LogOut(){
+  update(ref(db, "playerStats/" + myData),{
+    active: false
+  });
+  update(ref(db, "leaderboards/" + myData),{
+    active: false
+  });
+
+  update(ref(db, "players/" + myData),{
+    active: false
+  });
   sessionStorage.clear();
+  setTimeout(() => {window.location.href="login.html"}, 1000);
 }
 
-/*
-export function UpdatePlayerDisplayName(displayname){
-  onAuthStateChanged(auth, (user) => {
-    if (user !== null) {
-      // The user object has basic properties such as display name, email, etc.
-      const uid = user.uid;
-      const displayname = user.displayName;
-      console.log("Firebase.js in index.html: " + displayname);
-      //document.getElementById("username").innerHTML = displayname;
-    
-      // The user's ID, unique to the Firebase project. Do NOT use
-      // this value to authenticate with your backend server, if
-      // you have one. Use User.getToken() instead.
-      var myData = sessionStorage.getItem('UUID');
-      console.log(myData);
-      
-    }
-  });
-}
-*/
 

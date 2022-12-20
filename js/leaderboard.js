@@ -52,23 +52,47 @@ var limit = 10;
         var i = 1;
         lbList.forEach((item) => {
           //console.log(`username of players found: ${item.noOfMoneyEarned}`);
-          var status = "Offline"
-          if(item.active == true)
-          {
+          var status = "Offline";
+          var username = "Unable to retrieved player name";
+          var moneyEarned = "0";
+          var boxedDelivered = "0";
+
+          if(item.active == true){
             status = '<td style="color:green;">Online</td>'
           }
           else{
             status = '<td style="color:red;">Offline</td>'
           }
-          
+
+          if(item.userName == null){
+            username = "Unable to retrieved player name";
+          }
+          else{
+            username = item.userName;
+          }
+
+          if(item.noOfMoneyEarned == null){
+            moneyEarned = "0";
+          }
+          else{
+            moneyEarned = item.noOfMoneyEarned;
+          }
+
+          if(item.noOfboxDelivered == null){
+            boxedDelivered = "0";
+          }
+          else{
+            boxedDelivered = item.noOfboxDelivered;
+          }
+
           content += `
           
           <tr>
           <td>${i++}</td>
-          <td>${item.userName}</td>
+          <td>${username}</td>
           ${status}
-          <td>$${item.noOfMoneyEarned}</td>
-          <td>${item.noOfboxDelivered}</td>
+          <td>$${moneyEarned}</td>
+          <td>${boxedDelivered}</td>
           </tr>
           `
         });

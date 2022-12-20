@@ -24,3 +24,7 @@ html, body {
   #playerUserName{
     padding-top: 15px;
   }
+
+  .card{
+    height: 90% !important;
+  }

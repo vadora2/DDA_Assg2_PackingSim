@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    
     <link href="styles.css" rel="stylesheet">
 </head>
 
@@ -26,7 +27,7 @@
     <script type="module" src="js/firebase.js"></script>
     <script type="module" src="js/leaderboard.js"></script>
     <script type="module" src="js/dashboard.js"></script>
-    <!--<script type="module" src="js/signin.js"></script>-->
+    <!--<script type="module" src="js/playerstatistic.js"></script>-->
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -44,7 +45,9 @@
                         <ui class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 my-small" id="playerUserName"></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 my-small" id="playerUserName">
+                                    <p style="color: red; font-weight: bold;">*No Player Name</p>
+                                </span>
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -65,9 +68,9 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Your Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800" style="font-weight: bold;">Your Dashboard</h1>
                         <br>
-                        <h1 class="h3 mb-0 text-gray-800">Packing Simulator</h1>
+                        <h1 class="h3 mb-0 text-gray-800" style="font-weight: bold;">Packing Simulator</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -81,7 +84,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Overall Total Boxes Delivered</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p id="overAllBoxesDelivered">999</p></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p id="overAllBoxesDelivered">0</p></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -99,7 +102,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Overall Total Money Earned</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"  id="overAllMoneyEarned">$215,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"  id="overAllMoneyEarned">$0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -129,12 +132,12 @@
                                                             aria-valuemax="100"></div>
                                                     </div>
                                                 </div>-->
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800"  id="noOfActiveUser">18</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"  id="noOfActiveUser">0</div>
                                             </div>
                                         </div>
-                                        <div class="col-auto">
+                                        <!--<div class="col-auto">
                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -148,11 +151,11 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Number of Registered User</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"  id="noOfRegisteredUser">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"  id="noOfRegisteredUser">0</div>
                                         </div>
-                                        <div class="col-auto">
+                                        <!--<div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -204,9 +207,8 @@
                             <div class="card shadow mb-4">
 
                                 <!-- Data Actions - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Player Statistics</h6>
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Your Statistics</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -219,7 +221,9 @@
                                             <a class="dropdown-item" href="#">Read Data</a>-->
                                             
                                             <!--<div class="dropdown-divider"></div>-->
-                                            <a class="dropdown-item" href="#">Delete Data</a>
+                                            <!--<a class="dropdown-item" href="#">Delete Data</a>-->
+                                            <!--<input class="dropdown-item" type="submit" id="deleteData" value= "Delete Data">-->
+                                            <button class="dropdown-item" id="deleteData">Delete Statistics</button>
                                             <!--<span class="dropdown-item" href="#">Deleting data will erase all your data forever</span>-->
                                         </div>
                                     </div>
@@ -231,23 +235,23 @@
                                         <table style="width:100%">
                                             <tr>
                                               <th>Player Name:</th>
-                                              <td id="playerStatsUserName"></td>
+                                              <td id="playerStatsUserName">No Player Name</td>
                                             </tr>
 
                                             <tr>
-                                              <th class="statsData">Highest Score:</th>
-                                              <td id="noOfboxDelivered"></td>
+                                              <th class="statsData">Total Money Earned:</th>
+                                              <td id="noOfboxDelivered">$0</td>
                                             </tr>
 
                                             <tr>
-                                              <th>Highest Boxes Delivered:</th>
-                                              <td id="noOfMoneyEarned"></td>
+                                              <th>Total Boxes Delivered:</th>
+                                              <td id="noOfMoneyEarned">0</td>
                                             </tr>
 
-                                            <!--<tr>
-                                                <th>Total Time Spent:</th>
-                                                <td id="boxesDelivered"></td>
-                                            </tr>-->
+                                            <tr>
+                                                <th>Your Status:</th>
+                                                <td id="yourStatus"></td>
+                                            </tr>
                                           </table>
                                     </div>
                                     
@@ -395,7 +399,8 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Log Out</a>
+                    <!--<a class="btn btn-primary" href="login.html">Log Out</a>-->
+                    <button class="btn btn-primary" id="LogOutBTN">Log Out</button>
                 </div>
             </div>
         </div>
