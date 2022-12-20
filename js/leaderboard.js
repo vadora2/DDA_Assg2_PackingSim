@@ -17,6 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
+
 //Working with Auth
 const auth = getAuth();
 const user = auth.CurrentUser;
@@ -51,13 +52,22 @@ var limit = 10;
         var i = 1;
         lbList.forEach((item) => {
           //console.log(`username of players found: ${item.noOfMoneyEarned}`);
+          var status = "Offline"
+          if(item.active == true)
+          {
+            status = '<td style="color:green;">Online</td>'
+          }
+          else{
+            status = '<td style="color:red;">Offline</td>'
+          }
           
           content += `
           
           <tr>
           <td>${i++}</td>
           <td>${item.userName}</td>
-          <td>${item.noOfMoneyEarned}</td>
+          ${status}
+          <td>$${item.noOfMoneyEarned}</td>
           <td>${item.noOfboxDelivered}</td>
           </tr>
           `

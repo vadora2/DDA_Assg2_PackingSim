@@ -70,6 +70,7 @@ function createUser(email, password, displayname) {
     };
     var playerStats = {
       createdOn: currentTimestamp,
+      active: true,
       noOfMoneyEarned: 0,
       noOfboxDelivered: 0,
       updatedOn: currentTimestamp,
@@ -78,6 +79,7 @@ function createUser(email, password, displayname) {
     var leaderboard = {
       noOfMoneyEarned: 0,
       noOfboxDelivered: 0,
+      active: true,
       updatedOn: currentTimestamp,
       userName: displayname,
     };

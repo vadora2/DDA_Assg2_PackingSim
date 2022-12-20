@@ -25,6 +25,7 @@
 <body id="page-top">
     <script type="module" src="js/firebase.js"></script>
     <script type="module" src="js/leaderboard.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
     <!--<script type="module" src="js/signin.js"></script>-->
 
     <!-- Page Wrapper -->
@@ -79,8 +80,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Overall High Score</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                                Overall Total Boxes Delivered</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><p id="overAllBoxesDelivered">999</p></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -97,8 +98,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Boxes Sent</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                                Overall Total Money Earned</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"  id="overAllMoneyEarned">$215,000</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -114,10 +115,11 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Number Of Active User
                                             </div>
                                             <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
+                                                
+                                                <!--<div class="col-auto">
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
                                                 </div>
                                                 <div class="col">
@@ -126,7 +128,8 @@
                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
                                                     </div>
-                                                </div>
+                                                </div>-->
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"  id="noOfActiveUser">18</div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -144,8 +147,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Total Time Spent</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Number of Registered User</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"  id="noOfRegisteredUser">18</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -167,7 +170,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Leaderboard Ranking</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Top 10 Leaderboard Ranking</h6>
                                 </div>
 
                                 <!-- Leaderboard -->
@@ -184,7 +187,8 @@
                                             <tr>
                                                 <th>Ranking</th>
                                                 <th>Name</th>
-                                                <th>MoneyEarned</th>
+                                                <th>Status</th>
+                                                <th>Money Earned</th>
                                                 <th>Boxes Delivered</th>
                                             </tr>
 
