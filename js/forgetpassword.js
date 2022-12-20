@@ -37,12 +37,13 @@ SignInUser.addEventListener("submit", function (e) {
 function forgetPassword(email)
 {
     console.log("Forget password...")
-    var email = document.getElementById("email").value;
-
+    //var email = document.getElementById("email").value;
+    console.log("email info:" + email)
     sendPasswordResetEmail(auth, email)
-    
-  .then(() => {
-    console.log("Sending email to reset password")
+    .then(() => {
+      console.log("Sending email to reset password")
+      alert('Password reset link has been sent to your email')
+      
     // Password reset email sent!
     // ..
   })
