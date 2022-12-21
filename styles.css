@@ -8,6 +8,12 @@ html, body {
     background-position: center;
     background-size: cover;
   }
+
+  .bg-password-image{
+    background: url("img/worker.jpg") ; 
+    background-position: center;
+    background-size: cover;
+  }
   
   .my-dropdown-menu-right {
     right: 0;
