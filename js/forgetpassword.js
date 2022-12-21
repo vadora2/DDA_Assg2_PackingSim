@@ -25,9 +25,9 @@ const app = initializeApp(firebaseConfig);
 //const db = getDatabase();
 
 const auth = getAuth();
-let SignInUser = document.getElementById("frmForgetPassword");
+let ForgetPassword = document.getElementById("frmForgetPassword");
 
-SignInUser.addEventListener("submit", function (e) {
+ForgetPassword.addEventListener("submit", function (e) {
     e.preventDefault();
     var email = document.getElementById("email").value;
     
