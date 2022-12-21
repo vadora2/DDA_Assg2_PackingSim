@@ -57,6 +57,7 @@ function UpdatePlayerStats(){
   setTimeout(() => {window.location.href="index.html"}, 1000);
 }
 
+//Get player data
 getPlayerData(limit = 1);
 function getPlayerData() {
   //const playerRef = ref(db, "players");

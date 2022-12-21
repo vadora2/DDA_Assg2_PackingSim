@@ -34,6 +34,7 @@ ForgetPassword.addEventListener("submit", function (e) {
     forgetPassword(email);
   });
 
+// Forget password to send email
 function forgetPassword(email)
 {
     console.log("Forget password...")

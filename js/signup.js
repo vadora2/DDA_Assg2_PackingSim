@@ -59,6 +59,7 @@ function createUser(email, password, displayname) {
       //UpdatePlayerDisplayName();
       //console.log(displayname);
 
+    // create the database in the website
     var currentTimestamp = new Date().getTime();
     var playerData = {
       active: true,

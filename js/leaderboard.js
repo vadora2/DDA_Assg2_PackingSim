@@ -29,13 +29,14 @@ var myData = sessionStorage.getItem('UUID');
 console.log("this is my data in leaderboard: " + myData);
 
 var limit = 10;
-
+// get leaderboard
   getLB(limit);
   function getLB(limit = 10){
      //q = get(leaderboard).then(orderByChild("noOfMoneyEarned"));
+     // Sort the leaderboard
     const que = query(ref(db,"leaderboards"),orderByChild("noOfMoneyEarned"),limitToLast(limit))
     
-  
+    //get the sorted leaderboard
     get(que).then((snapshot) => { //retrieve a snapshot of the data using a callback
       if (snapshot.exists()) {
         //if the data exist
